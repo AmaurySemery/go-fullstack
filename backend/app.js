@@ -14,6 +14,11 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     res.json({message: 'votre requête a bien été reçue !'});
+    next();
 });
+
+app.use((req,res) => {
+    console.log('Réponse envoyée avec succès !');
+})
 
 module.exports = app;
