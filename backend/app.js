@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose')
 
+const Thing = require('./models/Thing')
+
 mongoose.connect('mongodb+srv://test:nono@cluster0.lhp5k.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -18,12 +20,15 @@ app.use((req, res, next) => {
     next();
   });
 
-app.post('/api/stuff', (req,res,next) => {
-    console.log(req.body);
-    res.status(201).json({
-        message: 'Objet créé !'
+  app.post('/api/stuff', (req, res, next) => {
+    delete req.body._id;
+    const thing = new Thing({
+      ...req.body
     });
-});
+    thing.save()
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .catch(error => res.status(400).json({ error }));
+  });
 
 app.get('/api/stuff', (req, res, next) => {
     const stuff = [
