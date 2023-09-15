@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = requite('mongoose')
+const mongoose = require('mongoose')
 
 mongoose.connect('mongodb+srv://test:nono@cluster0.lhp5k.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
