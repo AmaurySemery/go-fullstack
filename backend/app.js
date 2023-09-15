@@ -11,6 +11,13 @@ app.use((req, res, next) => {
     next();
   });
 
+app.post('/api/stuff', (req,res,next) => {
+    console.log(req.body);
+    res.status(201).json({
+        message: 'Objet créé !'
+    });
+});
+
 app.get('/api/stuff', (req, res, next) => {
     const stuff = [
       {
